@@ -1,17 +1,20 @@
 const mongoose = require("mongoose");
 
 const LinkSchema = new mongoose.Schema(
-  {
-    url: { type: String, required: true },
-    metadata: {
-      title: { type: String },
-      image: { type: String },
-      url: { type: String },
-      author :{type: String}
+    {
+        metadata: {
+            url: { type: String, required: true },
+            title: { type: String },
+            image: { type: String },
+            author: { type: String },
+            date: {type: Date},
+            publisher: {type:String},
+            description: {type:String},
+            logo: { type: String },
+        },
+        createdAt: { type: Date, default: Date.now },
     },
-    createdAt: { type: Date, default: Date.now },
-  },
-  { collection: "links" }
+    { collection: "links" }
 );
 
 module.exports = mongoose.model("Link", LinkSchema);
