@@ -41,6 +41,12 @@ router.post("/save", async (req, res) => {
         if (!isValidUrl) {
             return res.status(400).json({ error: "Invalid URL format" });
         }
+        //Avoid Duplicate URL
+        const existingLink = await Link.findOne({ "metadata.url": url }); 
+        if (existingLink) {
+            return res.status(409).json({ error: "URL already exists" });
+        }
+
         // Fetch metadata
         const metadata = await fetchMetadata(url);
 
@@ -50,11 +56,11 @@ router.post("/save", async (req, res) => {
               .status(404)
               .json({ error: "Unable to fetch metadata. Please check the URL." });
           }
-
+        
         const newLink = new Link({ metadata });
         await newLink.save();
 
-        res.status(201).json({ message: "Link saved with metadata" });
+        res.status(201).json(newLink);
     } catch (err) {
         res.status(500).json({ error: "Failed to save link" });
     }

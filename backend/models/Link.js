@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const LinkSchema = new mongoose.Schema(
     {
         metadata: {
-            url: { type: String, required: true },
+            url: { type: String, required: true, unique:true },
             title: { type: String },
             image: { type: String },
             author: { type: String },
