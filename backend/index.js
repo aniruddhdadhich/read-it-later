@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const linkRoutes = require("./routes/linkRoutes");
+const youtubeRoutes = require("./routes/youtubeRoutes");
+require('dotenv').config()
 
 const app = express();
 
@@ -10,15 +12,18 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+
+
 // Database Connection
-const mongoURI = "mongodb+srv://aniruddh:S4QsepPqBMmJSgz5@cluster0.vkpyi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongoURI = process.env.MONGO_URI;
 mongoose
   .connect(mongoURI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Database connection error:", err));
 
 // Routes
-app.use("/api/links", linkRoutes);
+app.use("/api/articles", linkRoutes);
+app.use("/api/yt-videos", youtubeRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 3001;
