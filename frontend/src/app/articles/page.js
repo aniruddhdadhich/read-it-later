@@ -4,7 +4,8 @@ import axios from "axios";
 import { DeleteIcon } from "../DeleteIcon";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
-export default function Home() {
+
+export default function ArticlesPage() {
   const [url, setUrl] = useState("");
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState("")
